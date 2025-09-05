@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phone Guard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset & Base */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: black;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Hacker Animation Background */
+#matrix {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:1;
+}
+
+#matrix span {
+    position:absolute;
+    top:-50px;
+    font-size: 16px;
+    color:#0f0;
+    user-select:none;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { top: -50px; opacity: 1; }
+    100% { top: 100vh; opacity: 0; }
+}
+
+/* Foreground content */
+header, .hack-options, footer {
+    position: relative;
+    z-index: 2;
+}
+
+/* Header / Branding */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0,0,0,0.7);
+}
+header h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+}
+
+/* Buttons Grid */
+.hack-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    text-align: center;
+}
+.hack-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: rgba(0,0,0,0.7);
+    border: 2px solid #0ff;
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px #0ff40;
+}
+.hack-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 30px #0ff;
+    border-color: #0ff;
+    color: #0ff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #777;
+    background: rgba(0,0,0,0.7);
+}
+</style>
+</head>
+<body>
+
+<!-- Hacker Animation -->
+<div id="matrix"></div>
+
+<header>
+    <h1>Phone Guard</h1>
+</header>
+
+<section class="hack-options">
+    <a href="phone.html" class="hack-btn">Phone Hack</a>
+    <a href="facebook.html" class="hack-btn">Facebook Hack</a>
+    <a href="imo.html" class="hack-btn">Imo Hack</a>
+    <a href="whatsapp.html" class="hack-btn">Whatsapp Hack</a>
+    <a href="location.html" class="hack-btn">Location Hack</a>
+    <a href="wifi.html" class="hack-btn">Wifi Hack</a>
+    <a href="tiktok.html" class="hack-btn">TikTok Hack</a>
+    <a href="instagram.html" class="hack-btn">Instagram Hack</a>
+    <a href="snapchat.html" class="hack-btn">Snapchat Hack</a>
+</section>
+
+<footer>
+    &copy; 2025 Phone Guard. All rights reserved.
+</footer>
+
+<script>
+// Matrix-style animation
+const matrix = document.getElementById('matrix');
+const chars = "01ABCDEF!@#$%^&*()_+-=<>?/[]{};:abcdefghijklmnopqrstuvwxyz";
+const numSpans = 200;
+
+for(let i=0; i<numSpans; i++){
+    const span = document.createElement('span');
+    span.style.left = Math.random() * window.innerWidth + "px";
+    span.style.animationDelay = Math.random() * 5 + "s";
+    span.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+    matrix.appendChild(span);
+}
+
+// Update span content randomly
+setInterval(() => {
+    matrix.querySelectorAll('span').forEach(span => {
+        span.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+    });
+}, 100);
+</script>
+
+</body>
+</html>
