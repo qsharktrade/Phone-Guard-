@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Guard - Login</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: black;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: #0ff;
+    }
+
+    /* Matrix background */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .login-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      width: 220px;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 0 10px #0ff;
+      background: black;
+      color: #0ff;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #0ff;
+      color: black;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 15px #0ff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: black;
+      color: #0ff;
+      box-shadow: 0 0 25px #0ff;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+      text-shadow: 0 0 10px red;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="login-box">
+    <h1>Phone Guard</h1>
+    <input type="password" id="pwd" placeholder="Enter Access Code">
+    <br>
+    <button onclick="checkPassword()">Access</button>
+    <div class="error" id="error">Invalid Code!</div>
+  </div>
+
+  <script>
+    // Matrix effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const chars = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0ff";
+      ctx.font = fontSize + "px monospace";
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+
+    // Password check
+    const correctPassword = "555456558127998";
+    function checkPassword() {
+      const val = document.getElementById("pwd").value.trim();
+      const errorBox = document.getElementById("error");
+
+      if (val === correctPassword) {
+        window.location.href = "home.html";
+      } else {
+        errorBox.style.display = "block";
+        setTimeout(() => {
+          errorBox.style.display = "none";
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
